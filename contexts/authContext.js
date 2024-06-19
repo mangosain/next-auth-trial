@@ -1,8 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth } from '../firebase.config';
-import { onAuthStateChanged } from 'firebase/auth';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { auth } from "../firebase.config";
+import { onAuthStateChanged } from "firebase/auth";
+import { stringify } from "querystring";
 
 const AuthContext = createContext(null);
 
@@ -13,10 +14,10 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
-        sessionStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem("user", JSON.stringify(user));
       } else {
         setCurrentUser(null);
-        sessionStorage.removeItem('user');
+        sessionStorage.removeItem("user");
       }
     });
 

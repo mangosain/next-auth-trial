@@ -81,6 +81,17 @@ const LogIn = () => {
     setSignUpState((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      setCurrentUser(userCredential.user);
+      alert("User logged in successfully!");
+      router.push("/");
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   return (
     <div className="auth-container">
       <div className="login p-10 rounded-lg shadow-md">
@@ -108,7 +119,11 @@ const LogIn = () => {
           <button type="submit" className="border p-1 rounded dark:text-white">
             Log In
           </button>
-          <button className="border p-1 rounded dark:text-white">
+          <button
+            type="button"
+            className="border p-1 rounded dark:text-white"
+            onClick={handleGoogleLogin}
+          >
             Log In with Google
           </button>
         </form>
